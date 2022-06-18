@@ -1,5 +1,6 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/Home';
+import PlayPodcastPage from './pages/PlayPodcastPage';
 import { ParseProvider } from './hooks/useParse';
 
 const App: React.FC = () => (
@@ -9,6 +10,9 @@ const App: React.FC = () => (
         <Switch>
           <Route path="/home">
             <HomePage />
+          </Route>
+          <Route path="/podcasts/:podcastId">
+            <PlayPodcastPage />
           </Route>
 
           <Route path="*">
