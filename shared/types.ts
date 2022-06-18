@@ -1,24 +1,32 @@
 import * as Parse from 'parse';
 
-export interface User {
+export interface UserProps {
   firstName: string;
   lastName: string;
 }
 
-export interface Podcast {
+export type User = Parse.Object<UserProps>;
+
+export interface PodcastProps {
   name: string;
   description: string;
-  author: Parse.Object<User>;
+  author: Parse.Object<UserProps>;
   file?: Parse.File;
   recordedDate?: Date;
   transcript?: string;
 }
 
-export interface Tag {
+export type Podcast = Parse.Object<PodcastProps>;
+
+export interface TagProps {
   name: string;
 }
 
-export interface PodcastTag {
-  podcast: Parse.Object<Podcast>;
-  tag: Parse.Object<Tag>;
+export type Tag = Parse.Object<TagProps>;
+
+export interface PodcastTagProps {
+  podcast: Parse.Object<PodcastProps>;
+  tag: Parse.Object<TagProps>;
 }
+
+export type PodcastTag = Parse.Object<PodcastTagProps>;
