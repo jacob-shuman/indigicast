@@ -9,7 +9,7 @@ export const Columns = ({ children, className }: ColumnsProps) => {
   return (
     <div
       className={`${tw(
-        `h-screen w-full grid grid-cols-4 gap-4 px-4`
+        `h-screen w-full grid grid-cols-4 gap-4 px-4 my-8`
       )} ${className}`}
     >
       {children}
