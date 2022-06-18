@@ -4,6 +4,8 @@ import { getPodcasts, getPodcastsByTags } from '../utils';
 import { useEffect, useState } from 'react';
 import useParse from '../hooks/useParse';
 import { PodcastCard } from '../components/PodcastCard';
+import { Columns } from '../components/Columns';
+import logo from '../assets/LogoIFA.png';
 
 const HomePage: React.FC = () => {
   const [podcasts, setPodcasts] = useState<Podcast[]>();
@@ -20,23 +22,28 @@ const HomePage: React.FC = () => {
 
   if (!podcasts) return null;
 
-  console.log('podcasts', podcasts);
-
   return (
-    <div className={tw(`h-full w-full bg-gray-200 text-blue-500 bg-[#ffffff]`)}>
-      <h1>Hello World!</h1>
-      <button
-        className={tw(``)}
-        onClick={async () => {
-          console.log(await getPodcastsByTags(['ljZj2JZCDV']));
-        }}
-      >
-        test
-      </button>
-      {podcasts.map((podcast) => (
-        <PodcastCard key={podcast.id} podcast={podcast} />
-      ))}
-    </div>
+    <Columns>
+      <div className={tw(`col-span-4`)}>
+        <img src={logo} alt="logo" className={tw(`h-20 my-4`)} />
+        <h1>Good Morning, Friend.</h1>
+        <button
+          className={tw(``)}
+          onClick={async () => {
+            console.log(await getPodcastsByTags(['ljZj2JZCDV']));
+          }}
+        >
+          Get Podcast by Tags
+        </button>
+      </div>
+      <div className={tw(`col-span-4`)}>
+        {podcasts.map((podcast) => (
+          <div className={tw(`my-4`)}>
+            <PodcastCard key={podcast.id} podcast={podcast} />
+          </div>
+        ))}
+      </div>
+    </Columns>
   );
 };
 
