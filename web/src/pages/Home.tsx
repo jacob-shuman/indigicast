@@ -1,6 +1,10 @@
 import { tw } from 'twind';
-import { Podcast } from 'project-shared';
-import { getPodcasts, getPodcastsByTags } from '../utils';
+import { Podcast, Tag } from 'project-shared';
+import {
+  getPodcasts,
+  getPodcastsByTags,
+  getTags as getTagsUtil,
+} from '../utils';
 import { useEffect, useState } from 'react';
 import useParse from '../hooks/useParse';
 import { PodcastCard } from '../components/PodcastCard';
@@ -8,7 +12,8 @@ import { Columns } from '../components/Columns';
 import logo from '../assets/LogoIFA.png';
 
 const HomePage: React.FC = () => {
-  const [podcasts, setPodcasts] = useState<Podcast[]>();
+  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const { initialized } = useParse();
 
   useEffect(() => {
@@ -17,10 +22,18 @@ const HomePage: React.FC = () => {
       const podcastResponse = await getPodcasts();
       setPodcasts(podcastResponse);
     }
+
+    async function getTags() {
+      const tagResponse = await getTagsUtil();
+      setTags(tagResponse);
+    }
     getPodcast();
+    getTags();
   }, [initialized]);
 
   if (!podcasts) return null;
+
+  console.log('tags', tags);
 
   return (
     <Columns>
@@ -35,6 +48,20 @@ const HomePage: React.FC = () => {
         >
           Get Podcast by Tags
         </button>
+        <div>
+          {tags.map((tag) => {
+            const {
+              id,
+              attributes: { name },
+            } = tag;
+            return (
+              <>
+                <input type="checkbox" value={name} id={id} />
+                {name}
+              </>
+            );
+          })}
+        </div>
       </div>
       <div className={tw(`col-span-4`)}>
         {podcasts.map((podcast) => (
