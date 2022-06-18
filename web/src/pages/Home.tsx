@@ -1,4 +1,4 @@
-import { tw } from 'twind';
+import { ToString, tw } from 'twind';
 import { Podcast, Tag } from 'project-shared';
 import {
   getPodcasts,
@@ -12,30 +12,35 @@ import { Columns } from '../components/Columns';
 import logo from '../assets/LogoIFA.png';
 
 const HomePage: React.FC = () => {
+  const { initialized } = useParse();
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState<string[]>([]);
-  const { initialized } = useParse();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [filteredPodcasts, setFilteredPodcasts] = useState<Podcast[]>([]);
+
+  async function getPodcast() {
+    const podcastResponse = await getPodcasts();
+    setPodcasts(podcastResponse);
+  }
+
+  async function getTags() {
+    const tagResponse = await getTagsUtil();
+    setTags(tagResponse);
+    setSelectedTags(tagResponse.map((tag) => tag.attributes.name));
+  }
+
+  async function filterBySelectedTags(tags: string[]) {
+    const filteredTagsResponse = await getPodcastsByTags(tags);
+    setFilteredPodcasts(filteredTagsResponse);
+  }
 
   useEffect(() => {
     if (!initialized) return;
-    async function getPodcast() {
-      const podcastResponse = await getPodcasts();
-      setPodcasts(podcastResponse);
-    }
 
-    async function getTags() {
-      const tagResponse = await getTagsUtil();
-      setTags(tagResponse);
-    }
     getPodcast();
     getTags();
   }, [initialized]);
-
-  useEffect(() => {
-    console.log('dropdownValue', dropdownValue);
-  }, [dropdownValue]);
 
   if (!podcasts) return null;
 
@@ -50,7 +55,9 @@ const HomePage: React.FC = () => {
   const handleDropdown = () => setDropdownOpen(!dropdownOpen);
   const handleCheckboxClick = (e: any) => {
     const clickedTag = e.target.value;
-    setDropdownValue((values) => toggleValues(values, clickedTag));
+    const updatedTags = toggleValues(selectedTags, clickedTag);
+    setSelectedTags((values) => toggleValues(values, clickedTag));
+    filterBySelectedTags(updatedTags);
   };
 
   return (
@@ -71,7 +78,7 @@ const HomePage: React.FC = () => {
             placeholder="Select Tags"
             className="form-select"
             aria-label="Default select example"
-            value={dropdownValue}
+            value={selectedTags}
             onClick={handleDropdown}
           />
           <div>
@@ -86,7 +93,7 @@ const HomePage: React.FC = () => {
                       <li>
                         <input
                           type="checkbox"
-                          value={name}
+                          value={id}
                           id={id}
                           onClick={handleCheckboxClick}
                         />
@@ -100,11 +107,17 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       <div className={tw(`col-span-4`)}>
-        {podcasts.map((podcast) => (
-          <div className={tw(`my-4`)}>
-            <PodcastCard key={podcast.id} podcast={podcast} />
-          </div>
-        ))}
+        {filteredPodcasts.length > 1
+          ? filteredPodcasts.map((podcast) => (
+              <div className={tw(`my-4`)}>
+                <PodcastCard key={podcast.id} podcast={podcast} />
+              </div>
+            ))
+          : podcasts.map((podcast) => (
+              <div className={tw(`my-4`)}>
+                <PodcastCard key={podcast.id} podcast={podcast} />
+              </div>
+            ))}
       </div>
     </Columns>
   );
