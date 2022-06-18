@@ -1,4 +1,4 @@
-import { Podcast, Tag } from 'project-shared';
+import { Podcast, Tag, User } from 'project-shared';
 import * as Parse from 'parse';
 
 export const getPodcastById = async (id: string): Promise<Podcast> =>
@@ -23,3 +23,6 @@ export const getPodcastsByTags = async (
     .skip(skip)
     .limit(limit)
     .find();
+
+export const getUserById = async (id: string): Promise<User> =>
+  await new Parse.Query<User>('User').get(id);
