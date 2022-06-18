@@ -19,14 +19,14 @@ export const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
         <CardBody>
           <Row>
         <Col>
-        <CardTitle><h1>{name}</h1></CardTitle>
+        <CardTitle><h1>{name}</h1></CardTitle> 
           <p>{tags.map((tag) => tag)}</p>
           <CardText>
           <p>Created on: {format(createdAt, 'MM/dd/yyyy')}</p>
           {recordedOn && 
             <p>Recorded on: {format(recordedOn, 'MM/dd/yyyy')}</p>
           }
-          </CardText>g
+          </CardText>
         </Col>
         <Col>
         <Link to={`podcasts/${podcast.id}`} >
