@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
     <Columns>
       <div className={tw(`col-span-4`)}>
         <img src={logo} alt="logo" className={tw(`h-20 my-4`)} />
-        <h1>Good Morning, Friend.</h1>
+        <p className="text-2xl text-center">Good Morning, Friend.</p>
         <button
           className={tw(``)}
           onClick={async () => {
