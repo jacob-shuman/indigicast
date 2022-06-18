@@ -10,10 +10,7 @@ const App: React.FC = () => (
         </Route>
 
         <Route path="*">
-          <Redirect
-            from="/"
-            to="home"
-          />
+          <Redirect from="/" to="home" />
         </Route>
       </Switch>
     </BrowserRouter>

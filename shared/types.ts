@@ -11,6 +11,7 @@ export interface PodcastProps {
   name: string;
   description: string;
   author: Parse.Object<UserProps>;
+  tags: string[];
   file?: Parse.File;
   recordedDate?: Date;
   transcript?: string;
@@ -23,10 +24,3 @@ export interface TagProps {
 }
 
 export type Tag = Parse.Object<TagProps>;
-
-export interface PodcastTagProps {
-  podcast: Parse.Object<PodcastProps>;
-  tag: Parse.Object<TagProps>;
-}
-
-export type PodcastTag = Parse.Object<PodcastTagProps>;
