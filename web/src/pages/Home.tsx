@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
   const handleCheckboxClick = (e: any) => {
     const clickedTag = e.target.value;
     const updatedTags = toggleValues(selectedTags, clickedTag);
-    setSelectedTags((values) => toggleValues(values, clickedTag));
+    setSelectedTags(updatedTags);
     filterBySelectedTags(updatedTags);
   };
 
