@@ -1,14 +1,15 @@
 import { tw } from 'twind';
-import { Podcast} from 'project-shared';
+import { Podcast } from 'project-shared';
+import { useEffect } from 'react';
 
 
 
-const Transcript: React.FC<Podcast> = podcast => {
+const Transcript: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   return (
     <div className={tw(`h-full w-full bg-gray-200 text-blue-500`)}>
 
 
-      <p>{podcast.transcript}</p>
+      <p>{podcast.attributes.transcript}</p>
 
 
     </div>
