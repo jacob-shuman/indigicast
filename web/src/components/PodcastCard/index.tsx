@@ -1,28 +1,45 @@
 import { Podcast } from 'project-shared';
-import { tw } from 'twind';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap';
+  CardTitle, Button, Row } from 'reactstrap';
+import { Col } from 'reactstrap';
+
 interface PodcastCardProps {
   podcast: Podcast;
 }
-
 export const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
-  const { attributes, createdAt, updatedAt } = podcast;
-  const { name, tags } = attributes;
+  const { attributes, createdAt } = podcast;
+  const { name, tags, file } = attributes;
+  const imageUrl = file?._url ? file._url : 'https://unsplash.com/photos/78A265wPiO4'
+  const recordedOn = attributes.recordedDate
 
   return (
-    <Link to={`podcasts/${podcast.id}`}>
-      <div
-        className={tw(`flex flex-row items-center p-12 rounded-xl
-      border-solid border-2 border-gray-400 bg-white`)}
-      >
-        <CardTitle>{name}</CardTitle>
-        <p>{tags.map((tag) => tag)}</p>
-        <p>{format(createdAt, 'MM/dd/yyyy')}</p>
-        <p>{format(updatedAt, 'MM/dd/yyyy')}</p>
-      </div>
-    </Link>
+      <Card>
+        <CardBody>
+          <Row>
+        <Col>
+        <CardTitle><h1>{name}</h1></CardTitle>
+          <p>{tags.map((tag) => tag)}</p>
+          <CardText>
+          <p>Created on: {format(createdAt, 'MM/dd/yyyy')}</p>
+          {recordedOn && 
+            <p>Recorded on: {format(recordedOn, 'MM/dd/yyyy')}</p>
+          }
+          </CardText>g
+        </Col>
+        <Col>
+        <Link to={`podcasts/${podcast.id}`} >
+          <CardImg src={imageUrl}></CardImg>
+        </Link>
+        </Col>
+        </Row>
+        <Button color='primary'>
+        <Link to={`podcasts/${podcast.id}`} style={{color: 'white'}}>
+          Listen to Podcast
+          </Link>
+        </Button>
+        </CardBody>
+      </Card>
   );
 };
