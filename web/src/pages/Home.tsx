@@ -14,6 +14,8 @@ import logo from '../assets/LogoIFA.png';
 const HomePage: React.FC = () => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownValue, setDropdownValue] = useState<string[]>([]);
   const { initialized } = useParse();
 
   useEffect(() => {
@@ -31,9 +33,25 @@ const HomePage: React.FC = () => {
     getTags();
   }, [initialized]);
 
+  useEffect(() => {
+    console.log('dropdownValue', dropdownValue);
+  }, [dropdownValue]);
+
   if (!podcasts) return null;
 
-  console.log('tags', tags);
+  const toggleValues = (values: string[], clickedTag: string): string[] => {
+    const index = values.indexOf(clickedTag);
+    if (index === -1) {
+      return [...values, clickedTag];
+    }
+    return values.filter((value) => value !== clickedTag);
+  };
+
+  const handleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const handleCheckboxClick = (e: any) => {
+    const clickedTag = e.target.value;
+    setDropdownValue((values) => toggleValues(values, clickedTag));
+  };
 
   return (
     <Columns>
@@ -49,18 +67,36 @@ const HomePage: React.FC = () => {
           Get Podcast by Tags
         </button>
         <div>
-          {tags.map((tag) => {
-            const {
-              id,
-              attributes: { name },
-            } = tag;
-            return (
-              <>
-                <input type="checkbox" value={name} id={id} />
-                {name}
-              </>
-            );
-          })}
+          <select
+            placeholder="Select Tags"
+            className="form-select"
+            aria-label="Default select example"
+            value={dropdownValue}
+            onClick={handleDropdown}
+          />
+          <div>
+            <ul>
+              {dropdownOpen
+                ? tags.map((tag) => {
+                    const {
+                      id,
+                      attributes: { name },
+                    } = tag;
+                    return (
+                      <li>
+                        <input
+                          type="checkbox"
+                          value={name}
+                          id={id}
+                          onClick={handleCheckboxClick}
+                        />
+                        {name}
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+          </div>
         </div>
       </div>
       <div className={tw(`col-span-4`)}>
