@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { tw } from 'twind';
 
-import { getPodcastById } from '../api/podcasts';
+import { Podcast } from 'project-shared'
 
-type Podcast = any;
+import { getPodcastById } from '../api/podcasts';
 
 const PlayPodcastPage: React.FC = () => {
     const { podcastId } = useParams<{ podcastId: string }>()

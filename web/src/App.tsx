@@ -9,7 +9,7 @@ const App: React.FC = () => (
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route path="/podcast/:podcastId">
+        <Route path="/podcasts/:podcastId">
           <PlayPodcastPage />
         </Route>
 
