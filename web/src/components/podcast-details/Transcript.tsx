@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const Transcript: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   return (
-    <div className={tw(`h-full w-10/12 bg-gray-200 text-blue-500 ml-auto mr-auto`)}>
+    <div className={tw(`h-full w-10/12 bg-gray-200 text-blue-500`)}>
 
       <h1 className={tw(`text-lg` )}>Transcript</h1>
       <p>{podcast.attributes.transcript}</p>
