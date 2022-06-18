@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { tw } from 'twind';
-import { EXAMPLE } from 'project-shared';
 
 import { getPodcastById } from '../api/podcasts';
 

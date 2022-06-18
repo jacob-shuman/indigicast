@@ -1,5 +1,5 @@
-type Podcast = any;
+import { Podcast } from 'project-shared'
 
 export default async function getPodcastById(id: string): Promise<Podcast> {
-    return {}
+    return {} as Podcast;
 }
