@@ -9,7 +9,8 @@ import { getPodcastById } from '../utils';
 import Header from '../components/podcast-details/Header'
 import Transcript from '../components/podcast-details/Transcript'
 
-// jgANPWd7TD
+import { Columns } from '../components/Columns';
+
 
 const PlayPodcastPage: React.FC = () => {
     const { podcastId } = useParams<{ podcastId: string }>();
@@ -28,10 +29,12 @@ const PlayPodcastPage: React.FC = () => {
     if (!podcast) return null;
 
     return (
-        <>
-            <Header podcast={podcast} />
-            <Transcript podcast={podcast} />
-        </>
+        <Columns className="items-center">
+            <div className={tw(`col-span-4`)}>
+                <Header podcast={podcast} />
+                <Transcript podcast={podcast} />
+            </div>
+        </Columns>
     );
 };
 

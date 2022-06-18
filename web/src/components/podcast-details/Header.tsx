@@ -21,14 +21,19 @@ const PodcastDetailsHeader: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
     }, [podcast, initialized])
     return (
         <>
-            <div className="home-link"><Link to="/">x</Link></div>
-            <h1>{podcast.attributes.name}</h1>
-            <p>Details</p>
-            <ul>
-                <li><strong>Author: </strong>{author?.attributes.firstName} {author?.attributes.lastName}</li>
-                <li><strong>Recorded Date: </strong>{String(podcast.attributes.recordedDate)}</li>
-                <li><strong>Tags: </strong>{podcast.attributes.tags.map(tag => <span>{JSON.stringify(tag)}</span>)}</li>
-            </ul>
+            <div>
+
+            </div>
+            <div>
+                <div className="home-link"><Link to="/">x</Link></div>
+                <h1>{podcast.attributes.name}</h1>
+                <p>Details</p>
+                <ul>
+                    <li><strong>Author: </strong>{author?.attributes.firstName} {author?.attributes.lastName}</li>
+                    <li><strong>Recorded Date: </strong>{String(podcast.attributes.recordedDate)}</li>
+                    <li><strong>Tags: </strong>{podcast.attributes.tags.map(tag => <span>{JSON.stringify(tag)}</span>)}</li>
+                </ul>
+            </div>
         </>
     );
 };
