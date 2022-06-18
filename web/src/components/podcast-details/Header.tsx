@@ -8,11 +8,14 @@ import useParse from '../../hooks/useParse';
 import { getUserById } from '../../utils';
 import useTags from '../../hooks/useTags';
 import { toDate } from 'date-fns';
+import { CardImg, Col, Row } from 'reactstrap';
 
 const PodcastDetailsHeader: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   const [author, setAuthor] = useState<User>();
   const { initialized } = useParse();
   const tags = useTags();
+  const { file } = podcast.attributes;
+  const imageUrl = file?._url ? file._url : 'https://unsplash.com/photos/78A265wPiO4'
 
   useEffect(() => {
     if (!initialized) return;
@@ -24,13 +27,16 @@ const PodcastDetailsHeader: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   }, [podcast, initialized]);
   return (
     <>
-      <div></div>
-      <div>
+      <div className='px-5'>
         <div className="home-link">
           <Link to="/">x</Link>
         </div>
         <h1>{podcast.attributes.name}</h1>
-        <p>Details</p>
+        <Row>
+        <Col className='col-3'>
+          <CardImg src={imageUrl}></CardImg>
+        </Col>
+        <Col>
         <ul>
           <li>
             <strong>Author: </strong>
@@ -47,6 +53,8 @@ const PodcastDetailsHeader: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
             ))}
           </li>
         </ul>
+        </Col>
+      </Row>
       </div>
     </>
   );

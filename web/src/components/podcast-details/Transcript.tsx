@@ -6,11 +6,9 @@ import { useEffect } from 'react';
 
 const Transcript: React.FC<{ podcast: Podcast }> = ({ podcast }) => {
   return (
-    <div className={tw(`h-full w-full bg-gray-200 text-blue-500`)}>
-
-      <h1 className={tw(`text-lg`)}>Transcript</h1>
+    <div className='px-5'>
+      <h1>Transcript</h1>
       <p>{podcast.attributes.transcript}</p>
-
     </div>
   );
 };
