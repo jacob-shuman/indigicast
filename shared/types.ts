@@ -14,6 +14,8 @@ export interface PodcastProps {
   tags: string[];
   file?: Parse.File;
   recordedDate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   transcript?: string;
 }
 
