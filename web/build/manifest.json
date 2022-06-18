@@ -1,6 +1,6 @@
 {
-  "name": "<TITLE_HERE>",
-  "short_name": "<TITLE_HERE>",
+  "name": "Indigi Cast",
+  "short_name": "IndigiCast",
   "icons": [
     {
       "src": "assets/android-chrome-192x192.png",

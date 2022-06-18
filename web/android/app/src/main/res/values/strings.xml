@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">TITLE_HERE</string>
-    <string name="title_activity_main">TITLE_HERE</string>
+    <string name="app_name">Indigi Cast</string>
+    <string name="title_activity_main">Indigi Cast</string>
     <string name="package_name">org.example.template</string>
     <string name="custom_url_scheme">org.example.template</string>
 </resources>
